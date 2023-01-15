@@ -11,7 +11,7 @@ function App({ store }) {
   });
 
   const handleDispatch = () => {
-    store.dispatch(actions.bugAdded("First Bug"));
+    store.dispatch(actions.bugAdded({description: "bugAdded"}));
   };
   const handleDelete = () => {
     //  bugRemoved(("Bug 1"))
