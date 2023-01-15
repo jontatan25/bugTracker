@@ -1,35 +1,26 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { bugAdded, bugRemoved, bugResolved } from "./actions";
+import configureStore from "./store/configureStore";
+import * as  actions from "./store/bugs"
 
 function App({ store }) {
   const [reduxStore, setReduxStore] = useState(null);
-  // unsuscribe, returned from subscription function
-  // important to prevent memory leaks
-  const unsuscribe = store.subscribe(() => {
-    console.log("store changed!", store.getState());
-    const updatedStore = store.getState();
-    setReduxStore(updatedStore);
+
+  store.subscribe(() => {
+    console.log("store changed");
   });
-  // and then we call it
-  // unsubscribe()
+
   const handleDispatch = () => {
-    bugAdded("Bug 1");
+    store.dispatch(actions.bugAdded("First Bug"));
   };
-
-  // RESOLVING BUG
-  // const handleDispatch = () => {
-  //   bugResolved(1)
-  // };
-
   const handleDelete = () => {
-   bugRemoved(("Bug 1"))
+    //  bugRemoved(("Bug 1"))
   };
 
-  useEffect(() => {
-    console.log("store changed!");
-    console.log(reduxStore);
-  }, [reduxStore]);
+  // useEffect(() => {
+  //   console.log("store changed!");
+  //   console.log(reduxStore);
+  // }, [reduxStore]);
 
   console.log(store.getState());
   return (
